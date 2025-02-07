@@ -1,0 +1,423 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+    <title>Windows 95 thing</title>
+		<script>
+		var zindex = 0;
+		window.onload = function() {
+			document.onmousedown = bringTaskbandToFront;
+			
+			function bringTaskbandToFront(e) {
+				e = e || window.event;
+				document.getElementById("Shell_TrayWnd").style.zIndex = (++zindex) * 4;
+			}
+			
+			var windows = document.getElementsByClassName("window");
+			for (var i = 0; i < windows.length; i++) {
+				dragElement(windows[i]);
+				bringElementToFront(windows[i]);
+			}
+			
+			function bringElementToFront(elmnt) {
+				elmnt.onmousedown = bringToFront;
+				
+				function bringToFront(e) {
+					e = e || window.event;
+					elmnt.style.zIndex = (++zindex) * 4;
+					
+					var windows = document.getElementsByClassName("window active");
+					for (var i = 0; i < windows.length; i++) {
+						windows[i].classList.remove("active")
+					}
+					elmnt.classList.add("active");
+				}
+			}
+			
+			function startTime() {
+				const today = new Date();
+				let h = today.getHours();
+				let m = today.getMinutes();
+				let s = today.getSeconds();
+				h = zeroPad(h);
+				m = zeroPad(m);
+				document.getElementById('clockTime').innerHTML =  h + ":" + m;
+				setTimeout(startTime, 1000);
+			}
+				
+			function zeroPad(i) {
+				if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+				return i;
+			}
+			
+			startTime();
+		
+			function dragElement(elmnt) {
+				var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+				if (elmnt.getElementsByClassName("titlebar")[0]) {
+					// if present, the header is where you move the DIV from:
+					elmnt.getElementsByClassName("titlebar")[0].onmousedown = dragMouseDown;
+				}
+				
+				function dragMouseDown(e) {
+					e = e || window.event;
+					if (event.target !== event.currentTarget) return;
+					e.preventDefault();
+					// get the mouse cursor position at startup:
+					pos3 = e.clientX;
+					pos4 = e.clientY;
+					document.onmouseup = closeDragElement;
+					// call a function whenever the cursor moves:
+					document.onmousemove = elementDrag;
+				}
+				
+				function elementDrag(e) {
+					e = e || window.event;
+					e.preventDefault();
+					// calculate the new cursor position:
+					pos1 = pos3 - e.clientX;
+					pos2 = pos4 - e.clientY;
+					pos3 = e.clientX;
+					pos4 = e.clientY;
+					// set the element's new position:
+					elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+					elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+				}
+				
+				function closeDragElement() {
+					// stop moving when mouse button is released:
+					document.onmouseup = null;
+					document.onmousemove = null;
+				}
+			}
+		}
+		</script>
+		<style>
+		@font-face {
+			font-family: Marlett;
+			src: url(marlett.ttf);
+		}
+		
+		.symbol {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			
+			font-family: Marlett;
+			position: absolute;
+			margin-left: 0;
+			margin-top: 0;
+			margin-right: 0;
+			margin-bottom: 0;
+		}
+		
+		.button {
+			width: 16px;
+			height: 16px;
+		}
+		
+		.caption .captionButton {
+			width: 16px;
+			height: 14px;
+			padding: 0px;
+			margin: 0px;
+			margin-left: -1px;
+			display: inline-block;
+		}
+		
+		.caption .maximize {
+			display: none;
+		}
+		
+		.maximizebox .caption .maximize {
+			margin-left: -2px;
+			display: inline-block;
+		}
+		
+		.caption .minimize {
+			display: none;
+		}
+		
+		.minimizebox .caption .minimize {
+			display: inline-block;
+		}
+		
+		.caption .symbol {
+			margin-left: 3px;
+			margin-top: 1px;
+			font-family: Marlett;
+		}
+		
+		.threeDobj {
+			box-shadow: inset -1px -1px 0px #000, inset 1px 1px 0px #FFF, inset -2px -2px 0px #0005;
+			background-color: #c0c0c0;
+			padding: 2px;
+		}
+		
+		.bgArea {
+			width: 160px;
+			height: 160px;
+			min-height: 160px;
+			margin: 4px;
+			margin-top: 4px;
+			margin-bottom: 4px;
+		}
+		
+		.wnd_ncarea {
+			box-shadow: inset -1px -1px 0px #000, inset 1px 1px 0px #c0c0c0, inset -2px -2px 0px #0005, inset -2px -2px 0px #c0c0c0, inset 2px 2px 0px #FFF;
+			background-color: #c0c0c0;
+			margin-left: 0;
+			margin-top: 0;
+			margin-right: 0;
+			margin-bottom: 0px;
+			padding: 3px;
+			position: absolute;
+			bottom: 0px;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+		}
+		
+		.wnd_client {
+			margin-left: 0;
+			margin-top: 0;
+			margin-right: 0;
+			margin-bottom: 0;
+			position: absolute;
+			bottom: 2px;
+			top: 22px;
+			left: 2px;
+			right: 2px;
+		}
+		
+		.titlebar {
+			height: 18px;
+			width: 100%;
+			background-color: gray;
+			padding: 0px;
+			margin: 0px;
+			font-smooth: never;
+			-webkit-font-smoothing : none;
+			-webkit-user-select: none; /* Safari */
+			-ms-user-select: none; /* IE 10 and IE 11 */
+			user-select: none; /* Standard syntax */
+		}
+		
+		.active .titlebar {
+			background-color: darkblue;
+		}
+		
+		.caption {
+			font-size: 10px;
+			float: right;
+			margin: 0px;
+			padding: 2px;
+		}
+		
+		.title {
+			color: white;
+			font-weight: bold;
+			font-family: MS Sans Serif;
+			font-size: 11px;
+			position: relative;
+			top: -4px;
+			margin-left: 0px;
+		}
+		
+		.window {
+			width: 320px;
+			height: 320px;
+			position: absolute;
+		}
+		
+		.commctrl.checkbox .tick {
+			display: none;
+		}
+		
+		.commctrl.checkbox.ticked .tick {
+			display: block;
+		}
+		
+		.commctrl.checkbox {
+			margin-left: 2px;
+		}
+		
+		body {
+			background-color: teal;
+			overflow: hidden;
+		}
+		
+		.taskband {
+			width: 100%;
+			height: 28px;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			box-shadow: inset 0px 1px 0px #c0c0c0, inset 0px 2px 0px #FFF;
+			margin: 0px;
+			padding: 0px;
+			-webkit-font-smoothing : none;
+			-webkit-user-select: none; /* Safari */
+			-ms-user-select: none; /* IE 10 and IE 11 */
+			user-select: none; /* Standard syntax */
+		}
+		
+		.startbtn {
+			margin-top: 4px;
+			height: 22px;
+			padding: 0px;
+			margin-left: 2px;
+			width: 54px;
+			font-family: MS Sans Serif;
+			font-weight: bold;
+			font-size: 11px;
+			display: inline-block;
+		}
+		
+		.startbtn div {
+			position: relative;
+			top: 5px;
+			right: 5px;
+			float: right;
+		}
+		
+		.startbtn img {
+			position: relative;
+			top: 3px;
+			left: 4px;
+			display: inline-block;
+		}
+		
+		.titlebar .icon {
+			max-width: 16px;
+			max-height: 16px;
+			margin-left: 2px;
+			margin-right: -2px;
+			margin-top: 1px;
+			height: 16px;
+		}
+		
+		.notificationArea {
+			margin-top: 4px;
+			height: 22px;
+			padding: 0px;
+			padding-left: 12px;
+			padding-right: 12px;
+			margin-right: 2px;
+			display: inline-block;
+			float: right;
+			box-shadow: inset -1px -1px 0px #FFF, inset 1px 1px 0px #0004;
+			font-family: MS Sans Serif;
+			font-size: 11px;
+		}
+		
+		#clockTime {
+			position: relative;
+			top: 5px;
+		}
+		
+		#desktop {
+			z-index: 0 !important;
+		}
+		
+		</style>
+	</head>
+	<body>
+		
+		<div id="desktop" class="window" style="left: 0px; top: 0px;width: 100%; height: 100%; padding: 0px; margin: 0px;"></div>
+		
+		<div id="window1" class="window toplevel minimizebox maximizebox" style="left: 60px; top: 100px;">
+			<div class="wnd_ncarea">
+				<div class="titlebar">
+					<img class="icon" src="win.png" alt="window icon"/>
+					<span class="title">
+						Welcome
+					</span>
+					<span class="caption">
+						<div class="threeDobj button captionButton minimize">
+							<div class="commctrl">
+								<p class="symbol" style="color: black">0</p>
+							</div>
+						</div>
+						<div class="threeDobj button captionButton maximize">
+							<div class="commctrl">
+								<p class="symbol" style="color: black">1</p>
+							</div>
+						</div>
+						
+						<div class="threeDobj button captionButton">
+							<div class="commctrl">
+								<p class="symbol" style="color: black">r</p>
+							</div>
+						</div>
+						
+					</span>
+				</div>
+				<div class="wnd_client">
+					<div class="threeDobj bgArea">
+						<div class="commctrl checkbox ticked">
+							<p class="symbol" style="color: #FFFF">g</p>
+							<p class="symbol" style="color: #0006">c</p>
+							<p class="symbol" style="color: #FFFA">d</p>
+							<p class="symbol" style="color: #000C">e</p>
+							<p class="symbol" style="color: #AAAA">f</p>
+							<p class="symbol tick" style="color: black">b</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="google2000" class="window toplevel minimizebox maximizebox active" style="left: 160px; top: 140px; width: 640px; height: 480px;">
+			<div class="wnd_ncarea">
+				<div class="titlebar">
+					<img class="icon" src="win.png" alt="window icon"/>
+					<span class="title">
+						Google
+					</span>
+					<span class="caption">
+						<div class="threeDobj button captionButton minimize">
+							<div class="commctrl">
+								<p class="symbol" style="color: black">0</p>
+							</div>
+						</div>
+						<div class="threeDobj button captionButton maximize">
+							<div class="commctrl">
+								<p class="symbol" style="color: black">1</p>
+							</div>
+						</div>
+						
+						<div class="threeDobj button captionButton">
+							<div class="commctrl">
+								<p class="symbol" style="color: black">r</p>
+							</div>
+						</div>
+						
+					</span>
+				</div>
+				<div class="wnd_client">
+					<iframe id="google" style="background-color: white; position: absolute; width: 100%; height: 100%; border: 0; padding: 0px; margin: 0px;" src="hello.html"></iframe>
+				</div>
+				<script>
+					var frame = document.getElementById('google');
+					frame.src = "hello.html";
+				</script>
+			</div>
+		</div>
+		
+		<div class="taskband threeDobj window" id="Shell_TrayWnd">
+			<div class="threeDobj startbtn" id="start">
+				<img src="win.png" alt="windows logo icon"/>
+				<div>Start</div>
+			</div>
+			<div class="notificationArea">
+				<div id="clock">
+					<span id="clockTime"/>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
