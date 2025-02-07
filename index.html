@@ -1,95 +1,95 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-    <title>Windows 95 thing</title>
+    		<title>Windows 95 thing</title>
 		<script>
-		var zindex = 0;
-		window.onload = function() {
-			document.onmousedown = bringTaskbandToFront;
+			var zindex = 0;
+			window.onload = function() {
+				document.onmousedown = bringTaskbandToFront;
 			
-			function bringTaskbandToFront(e) {
-				e = e || window.event;
-				document.getElementById("Shell_TrayWnd").style.zIndex = (++zindex) * 4;
-			}
-			
-			var windows = document.getElementsByClassName("window");
-			for (var i = 0; i < windows.length; i++) {
-				dragElement(windows[i]);
-				bringElementToFront(windows[i]);
-			}
-			
-			function bringElementToFront(elmnt) {
-				elmnt.onmousedown = bringToFront;
-				
-				function bringToFront(e) {
+				function bringTaskbandToFront(e) {
 					e = e || window.event;
-					elmnt.style.zIndex = (++zindex) * 4;
+					document.getElementById("Shell_TrayWnd").style.zIndex = (++zindex) * 4;
+				}
+			
+				var windows = document.getElementsByClassName("window");
+				for (var i = 0; i < windows.length; i++) {
+					dragElement(windows[i]);
+					bringElementToFront(windows[i]);
+				}
+			
+				function bringElementToFront(elmnt) {
+					elmnt.onmousedown = bringToFront;
+				
+					function bringToFront(e) {
+						e = e || window.event;
+						elmnt.style.zIndex = (++zindex) * 4;
 					
-					var windows = document.getElementsByClassName("window active");
-					for (var i = 0; i < windows.length; i++) {
-						windows[i].classList.remove("active")
+						var windows = document.getElementsByClassName("window active");
+						for (var i = 0; i < windows.length; i++) {
+							windows[i].classList.remove("active")
+						}
+						elmnt.classList.add("active");
 					}
-					elmnt.classList.add("active");
 				}
-			}
 			
-			function startTime() {
-				const today = new Date();
-				let h = today.getHours();
-				let m = today.getMinutes();
-				let s = today.getSeconds();
-				h = zeroPad(h);
-				m = zeroPad(m);
-				document.getElementById('clockTime').innerHTML =  h + ":" + m;
-				setTimeout(startTime, 1000);
-			}
+				function startTime() {
+					const today = new Date();
+					let h = today.getHours();
+					let m = today.getMinutes();
+					let s = today.getSeconds();
+					h = zeroPad(h);
+					m = zeroPad(m);
+					document.getElementById('clockTime').innerHTML =  h + ":" + m;
+					setTimeout(startTime, 1000);
+				}
 				
-			function zeroPad(i) {
-				if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-				return i;
-			}
+				function zeroPad(i) {
+					if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+					return i;
+				}
 			
-			startTime();
+				startTime();
 		
-			function dragElement(elmnt) {
-				var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-				if (elmnt.getElementsByClassName("titlebar")[0]) {
-					// if present, the header is where you move the DIV from:
-					elmnt.getElementsByClassName("titlebar")[0].onmousedown = dragMouseDown;
-				}
+				function dragElement(elmnt) {
+					var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+					if (elmnt.getElementsByClassName("titlebar")[0]) {
+						// if present, the header is where you move the DIV from:
+						elmnt.getElementsByClassName("titlebar")[0].onmousedown = dragMouseDown;
+					}
 				
-				function dragMouseDown(e) {
-					e = e || window.event;
-					if (event.target !== event.currentTarget) return;
-					e.preventDefault();
-					// get the mouse cursor position at startup:
-					pos3 = e.clientX;
-					pos4 = e.clientY;
-					document.onmouseup = closeDragElement;
-					// call a function whenever the cursor moves:
-					document.onmousemove = elementDrag;
-				}
-				
-				function elementDrag(e) {
-					e = e || window.event;
-					e.preventDefault();
-					// calculate the new cursor position:
-					pos1 = pos3 - e.clientX;
-					pos2 = pos4 - e.clientY;
-					pos3 = e.clientX;
-					pos4 = e.clientY;
-					// set the element's new position:
-					elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-					elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-				}
-				
-				function closeDragElement() {
-					// stop moving when mouse button is released:
-					document.onmouseup = null;
-					document.onmousemove = null;
+					function dragMouseDown(e) {
+						e = e || window.event;
+						if (event.target !== event.currentTarget) return;
+						e.preventDefault();
+						// get the mouse cursor position at startup:
+						pos3 = e.clientX;
+						pos4 = e.clientY;
+						document.onmouseup = closeDragElement;
+						// call a function whenever the cursor moves:
+						document.onmousemove = elementDrag;
+					}
+					
+					function elementDrag(e) {
+						e = e || window.event;
+						e.preventDefault();
+						// calculate the new cursor position:
+						pos1 = pos3 - e.clientX;
+						pos2 = pos4 - e.clientY;
+						pos3 = e.clientX;
+						pos4 = e.clientY;
+						// set the element's new position:
+						elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+						elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+					}
+					
+					function closeDragElement() {
+						// stop moving when mouse button is released:
+						document.onmouseup = null;
+						document.onmousemove = null;
+					}
 				}
 			}
-		}
 		</script>
 		<link rel="stylesheet" type="text/css" href="./win32.css"/>
 	</head>
@@ -136,43 +136,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div id="google2000" class="window toplevel minimizebox maximizebox" style="left: 320px; top: 180px; width: 640px; height: 480px;">
-			<div class="wnd_ncarea">
-				<div class="titlebar">
-					<img class="icon" src="win.png" alt="window icon"/>
-					<span class="title">
-						Google
-					</span>
-					<span class="caption">
-						<div class="threeDobj button captionButton minimize">
-							<div class="commctrl">
-								<p class="symbol" style="color: black">0</p>
-							</div>
-						</div>
-						<div class="threeDobj button captionButton maximize">
-							<div class="commctrl">
-								<p class="symbol" style="color: black">1</p>
-							</div>
-						</div>
-						
-						<div class="threeDobj button captionButton">
-							<div class="commctrl">
-								<p class="symbol" style="color: black">r</p>
-							</div>
-						</div>
-						
-					</span>
-				</div>
-				<div class="wnd_client">
-					<iframe id="google" style="background-color: white; position: absolute; width: 100%; height: 100%; border: 0; padding: 0px; margin: 0px;" src="http://google2k.neoalpha.net/"></iframe>
-				</div>
-				<script>
-					var frame = document.getElementById('google');
-					frame.src = "http://google2k.neoalpha.net/";
-				</script>
 			</div>
 		</div>
 		
