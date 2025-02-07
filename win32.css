@@ -1,0 +1,229 @@
+@font-face {
+	font-family: Marlett;
+	src: url(marlett.ttf);
+}
+
+.symbol {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
+	font-family: Marlett;
+	position: absolute;
+	margin-left: 0;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+}
+
+.button {
+	width: 16px;
+	height: 16px;
+}
+
+.caption .captionButton {
+	width: 16px;
+	height: 14px;
+	padding: 0px;
+	margin: 0px;
+	margin-left: -1px;
+	display: inline-block;
+}
+
+.caption .maximize {
+	display: none;
+}
+
+.maximizebox .caption .maximize {
+	margin-left: -2px;
+	display: inline-block;
+}
+
+.caption .minimize {
+	display: none;
+}
+
+.minimizebox .caption .minimize {
+	display: inline-block;
+}
+
+.caption .symbol {
+	margin-left: 3px;
+	margin-top: 1px;
+	font-family: Marlett;
+}
+
+.threeDobj {
+	box-shadow: inset -1px -1px 0px #000, inset 1px 1px 0px #FFF, inset -2px -2px 0px #0005;
+	background-color: #c0c0c0;
+	padding: 2px;
+}
+
+.bgArea {
+	width: 160px;
+	height: 160px;
+	min-height: 160px;
+	margin: 4px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.wnd_ncarea {
+	box-shadow: inset -1px -1px 0px #000, inset 1px 1px 0px #c0c0c0, inset -2px -2px 0px #0005, inset -2px -2px 0px #c0c0c0, inset 2px 2px 0px #FFF;
+	background-color: #c0c0c0;
+	margin-left: 0;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0px;
+	padding: 3px;
+	position: absolute;
+	bottom: 0px;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+.wnd_client {
+	margin-left: 0;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	position: absolute;
+	bottom: 2px;
+	top: 22px;
+	left: 2px;
+	right: 2px;
+}
+
+.titlebar {
+	height: 18px;
+	width: 100%;
+	background-color: gray;
+	padding: 0px;
+	margin: 0px;
+	font-smooth: never;
+	-webkit-font-smoothing : none;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+.active .titlebar {
+	background-color: darkblue;
+}
+
+.caption {
+	font-size: 10px;
+	float: right;
+	margin: 0px;
+	padding: 2px;
+}
+
+.title {
+	color: white;
+	font-weight: bold;
+	font-family: MS Sans Serif;
+	font-size: 11px;
+	position: relative;
+	top: -4px;
+	margin-left: 0px;
+}
+
+.window {
+	width: 320px;
+	height: 320px;
+	position: absolute;
+}
+
+.commctrl.checkbox .tick {
+	display: none;
+}
+
+.commctrl.checkbox.ticked .tick {
+	display: block;
+}
+
+.commctrl.checkbox {
+	margin-left: 2px;
+}
+
+body {
+	background-color: teal;
+	overflow: hidden;
+}
+
+.taskband {
+	width: 100%;
+	height: 28px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	box-shadow: inset 0px 1px 0px #c0c0c0, inset 0px 2px 0px #FFF;
+	margin: 0px;
+	padding: 0px;
+	-webkit-font-smoothing : none;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+.startbtn {
+	margin-top: 4px;
+	height: 22px;
+	padding: 0px;
+	margin-left: 2px;
+	width: 54px;
+	font-family: MS Sans Serif;
+	font-weight: bold;
+	font-size: 11px;
+	display: inline-block;
+}
+
+.startbtn div {
+	position: relative;
+	top: 5px;
+	right: 5px;
+	float: right;
+}
+
+.startbtn img {
+	position: relative;
+	top: 3px;
+	left: 4px;
+	display: inline-block;
+}
+
+.titlebar .icon {
+	max-width: 16px;
+	max-height: 16px;
+	margin-left: 2px;
+	margin-right: -2px;
+	margin-top: 1px;
+	height: 16px;
+}
+
+.notificationArea {
+	margin-top: 4px;
+	height: 22px;
+	padding: 0px;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-right: 2px;
+	display: inline-block;
+	float: right;
+	box-shadow: inset -1px -1px 0px #FFF, inset 1px 1px 0px #0004;
+	font-family: MS Sans Serif;
+	font-size: 11px;
+}
+
+#clockTime {
+	position: relative;
+	top: 5px;
+}
+
+#desktop {
+	z-index: 0 !important;
+}
